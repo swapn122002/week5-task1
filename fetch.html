@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      font-family:'Lucida Sans', 'Lucida Sans Regular';
+      background-color: #f7f7f7;
+    }
+    th,td{
+    border: 1px solid #ddd;
+    padding: 8px;
+    }
+    tr:nth-child(even){background-color: #f2f2f2;}
+
+    tr:hover {background-color: #ddd;}
+
+    table{
+      border-collapse: collapse;
+      margin: 20px auto;
+      background-color: #fff;
+      box-shadow: 1px 1px 6px 3px rgba(0,0,0,0.07);
+      /* justify-content: center; */
+      /* align-items: center; */
+      text-align: center;
+      
+    }   
+    th{
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #04AA6D;
+      color: white;
+    }
+    td{
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+  
+
+  
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>info</th>
+        <th>name</th>
+        <th>image</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+  
+  fetch('https://api.npoint.io/7bbd3a59c401f616bb89')
+    .then(response => response.json())
+    .then(data => {
+      
+      var jsonData = data;
+
+      var tbody = document.querySelector("#dataTable tbody");
+
+      jsonData.places.forEach(function(item) {
+        var row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item.info}</td>
+          <td>${item.name}</td>
+          <td><img src="${item.image}" alt="${item.name}" width="100"></td>
+        `;
+        tbody.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching JSON data:', error);
+    });
+});
+
+    
+  </script>
+</body>
+</html>
